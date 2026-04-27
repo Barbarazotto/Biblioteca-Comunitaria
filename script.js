@@ -12,7 +12,7 @@ const livrosEncontrados = [
         id: 2,
         titulo: "O Ratinho, o Morango Vermelho Maduro e o Grande Urso Esfomeado",
         autor: "Audrey Wood",
-        imagem: "https://m.media-amazon.com/images/I/817OPPqhpmL._SY522_.jpg",
+        imagem: "https://m.media-amazon.com/images/I/A1jBQ8onjaL.jpg",
         disponivel: true
     },
 
@@ -35,16 +35,18 @@ const livrosEncontrados = [
 ];
 
 const resultadosBusca = document.getElementById("resultadosBusca");
-
+// Função para exibir os livros encontrados
 function exibirLivros(livros) {
+
+    resultadosBusca.innerHTML = "";
 
     livros.forEach(function(livro) {
 
         const card = document.createElement("div");
-        card.classList.add("card-livro");
+        card.classList.add("livro");
 
         const img = document.createElement("img");
-        img.setAttribute("src", livro.imagem);
+        img.src = livro.imagem;
 
         const titulo = document.createElement("h3");
         titulo.textContent = livro.titulo;
@@ -52,40 +54,32 @@ function exibirLivros(livros) {
         const autor = document.createElement("p");
         autor.textContent = "Autor: " + livro.autor;
 
-        const status = document.createElement("p");
-
+        const status = document.createElement("div");
+        status.classList.add("status");
+        // Verificar disponibilidade do livro e atualizar o status
         if (livro.disponivel) {
-
             status.textContent = "Disponível";
-            status.classList.add("disponivel");
-
         } else {
-
             status.textContent = "Indisponível";
-            status.classList.add("indisponivel");
-
         }
-
+        // Criar o botão de reserva
         const botao = document.createElement("button");
+        botao.classList.add("botao");
         botao.textContent = "Reservar";
 
-        botao.setAttribute("data-id", livro.id);
-
         if (!livro.disponivel) {
-
             botao.disabled = true;
-
         }
 
         botao.addEventListener("click", function() {
-
+            // 
             botao.textContent = "Reservado!";
             botao.disabled = true;
 
-            console.log("Livro reservado: " + livro.titulo);
+            status.textContent = "Indisponível";
 
         });
-
+        
         card.appendChild(img);
         card.appendChild(titulo);
         card.appendChild(autor);
